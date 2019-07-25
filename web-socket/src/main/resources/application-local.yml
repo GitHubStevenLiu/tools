@@ -1,0 +1,40 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: data_cleaning
+  redis:
+    jedis:
+      pool:
+        max-active: 1000
+        max-idle: 1000
+        min-idle: 100
+    #    timeout: 360000ms
+    cluster:
+      nodes: redis-mq:7010,redis-mq:7020,redis-mq:7030,redis-mq:7040,redis-mq:7050,redis-mq:7060
+    password: zhidao888
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: k8s-node01:9092,k8s-node02:9092,k8s-node03:9092
+          replication-factor: 3
+          configuration:
+           max.request.size: 26214400
+      bindings:
+        calculation:
+          destination: calculation
+          group: calculation_group
+          consumer:
+            concurrency: 3
+            partitioned: true
+        cleaning_receive:
+          destination: cleaning
+          group: cleaning_group
+          producer:
+            partitionCount: 3
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://127.0.0.1:9902/eureka
+

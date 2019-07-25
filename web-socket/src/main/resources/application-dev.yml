@@ -1,0 +1,23 @@
+server:
+  port: 8088
+spring:
+  application:
+    name: data_cleaning
+#  redis:
+#    jedis:
+#      pool:
+#        max-active: 1000
+#        max-idle: 1000
+#        min-idle: 100
+    #    timeout: 360000ms
+    cluster:
+      nodes: redis-mq:7010,redis-mq:7020,redis-mq:7030,redis-mq:7040,redis-mq:7050,redis-mq:7060
+    password: zhidao888
+  rabbitmq:
+    addresses: redis-mq:5672,redis-mq:5673,redis-mq:5674
+    username: cmbmq
+    password: CMBmq888
+    listener:
+      simple:
+        acknowledge-mode: manual
+        prefetch: 100

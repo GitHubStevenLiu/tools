@@ -1,0 +1,37 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: data_cleaning
+  redis:
+    jedis:
+      pool:
+        max-active: 1000
+        max-idle: 1000
+        min-idle: 100
+    #    timeout: 360000ms
+    cluster:
+      nodes: app-master0:7010,app-master0:7020,app-node0:7030,app-node0:7040,app-node1:7050,app-node1:7060
+    password: zhidao888
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: app-master0:9092,app-node0:9092,app-node1:9092
+          replication-factor: 3
+          configuration:
+           max.request.size: 26214400
+      bindings:
+        calculation:
+          destination: calculation
+          group: calculation_group
+          consumer:
+            concurrency: 3
+            partitioned: true
+        cleaning_receive:
+          destination: cleaning
+          group: cleaning_group
+          producer:
+            partitionCount: 3
+
+
