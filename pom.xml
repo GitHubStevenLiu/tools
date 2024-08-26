@@ -28,7 +28,7 @@
          <spring-cloud.version>Finchley.SR3</spring-cloud.version>-->
 
         <!-- swagger libs -->
-        <springfox.swagger.version>2.9.2</springfox.swagger.version>
+        <springfox.swagger.version>2.10.0</springfox.swagger.version>
         <swagger-bootstrap-ui.version>1.8.9</swagger-bootstrap-ui.version>
     </properties>
 
